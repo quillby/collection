@@ -1,3 +1,6 @@
+if(process.env.NODE_ENV !== 'production') {
+    require('dotenv').config({path: '.env'})
+}
 const express = require('express')
 const app = express()
 const expressLayouts = require('express-ejs-layouts')
@@ -15,7 +18,7 @@ app.use('/', indexRouter)
 app.use('/stammen', stamRouter)
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
 
-mongoose.connect('mongodb+srv://quinlan:3Kwz4YuXv@collection.c7vlr.mongodb.net/stammen?retryWrites=true&w=majority', {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true })
 const db = mongoose.connection
